@@ -33,10 +33,13 @@ ALLOWED_HOSTS = []
 INSTALLED_APPS = [
     "django.contrib.admin",
     "django.contrib.auth",
-    "django.contrib.contenttypes",
+    "django.contrib.contenttypes",  # Add this line
     "django.contrib.sessions",
     "django.contrib.messages",
     "django.contrib.staticfiles",
+    "rest_framework",
+    "rest_framework_simplejwt",
+    "health",
 ]
 
 MIDDLEWARE = [
@@ -79,6 +82,12 @@ DATABASES = {
         "ENGINE": "django.db.backends.sqlite3",
         "NAME": BASE_DIR / "db.sqlite3",
     }
+}
+
+REST_FRAMEWORK = {
+    'DEFAULT_AUTHENTICATION_CLASSES': (
+        'rest_framework_simplejwt.authentication.JWTAuthentication',
+    ),
 }
 
 
@@ -124,13 +133,7 @@ STATIC_URL = "static/"
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
 
-INSTALLED_APPS = [
-    # other apps
-    'rest_framework',
-    'rest_framework_simplejwt',
-    'health',
-    'django.contrib.staticfiles',
-]
+
 
 REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': (
@@ -138,14 +141,11 @@ REST_FRAMEWORK = {
     ),
 }
 
-TEMPLATES = [
-    {
-        'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [BASE_DIR / 'templates'],  # Add path for templates
-        'APP_DIRS': True,
-    },
-]
 
 AUTH_USER_MODEL = 'health.CustomUser'
 
 STATIC_URL = '/static/'
+
+AUTHENTICATION_BACKENDS = [
+    'django.contrib.auth.backends.ModelBackend',
+]
