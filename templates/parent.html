@@ -121,26 +121,20 @@ main {
     margin-top: auto;
     margin-bottom: 20px;
 }
+/* Blur Effect for Background */
+.blur-background {
+    filter: blur(5px);
+    pointer-events: none; /* Prevent interaction with the background elements */
+    transition: filter 0.9s ease-in-out;
+}
+.modal-content {
+    filter: none !important; 
+    pointer-events: auto; /* Ensure modal content is interactive */
+}
 
 </style>
 </head>
 <body>
-
-
-
-
-<div class="container-fluid">
-    <div class="row">
-<!-- Sidebar Navigation -->
-<!-- Sidebar Navigation -->
-<nav class="col-md-2 col-lg-1 sidebar d-flex flex-column align-items-center">
-    <img src="https://via.placeholder.com/80" alt="User Avatar" class="avatar">
-    <ul class="nav flex-column text-center w-100">
-        </li>
-    <a class="nav-link logout" href="index.html">
-        <i class="fas fa-sign-out-alt"></i>
-    </a>
-</nav>
 
 <!-- Verification Modal -->
 <div class="modal" id="verificationModal" tabindex="-1" aria-hidden="true" data-bs-backdrop="static" data-bs-keyboard="false">
@@ -159,9 +153,23 @@ main {
       </div>
     </div>
   </div>
-  
-  <div class="container-fluid" id="dashboardContent" style="display: none;">
         
+
+
+
+<div class="container-fluid">
+    <div class="row">
+<!-- Sidebar Navigation -->
+<!-- Sidebar Navigation -->
+<nav class="col-md-2 col-lg-1 sidebar d-flex flex-column align-items-center">
+    <img src="https://via.placeholder.com/80" alt="User Avatar" class="avatar">
+    <ul class="nav flex-column text-center w-100">
+        </li>
+    <a class="nav-link logout" href="index.html">
+        <i class="fas fa-sign-out-alt"></i>
+    </a>
+</nav>
+
     <!-- Main Content -->
         <main class="col-md-10 ms-sm-auto px-md-4">
             <!-- Header -->
@@ -175,6 +183,7 @@ main {
                     <button class="btn btn-outline-secondary">24h</button>
                 </div>
             </div>
+            
 
             <!-- Dashboard Sections -->
             <div class="row my-4">
@@ -240,24 +249,11 @@ main {
         </main>
     </div>
 </div>
-</div>
 
 <!-- Chart.js Script for Rounded Bar Chart -->
 <script>
     const ctx = document.getElementById('moodChart').getContext('2d');
-    const code = document.getElementById('verificationCode').value;
-  // Replace with actual code verification logic
-  if (code === 'EXPECTED_CODE') {  // Replace 'EXPECTED_CODE' with dynamic verification logic
-    document.getElementById('verificationModal').style.display = 'none';
-    document.getElementById('dashboardContent').style.display = 'block';
-  } else {
-    alert('Incorrect code. Please try again.');
-  }
-// Show modal on page load
-document.addEventListener('DOMContentLoaded', function () {
-  const verificationModal = new bootstrap.Modal(document.getElementById('verificationModal'));
-  verificationModal.show();
-});
+    
     const moodChart = new Chart(ctx, {
         type: 'bar',
         data: {
@@ -281,6 +277,39 @@ document.addEventListener('DOMContentLoaded', function () {
             }
         }
     });
+
+    
+     // Show modal on page load
+// Show modal on page load
+document.addEventListener('DOMContentLoaded', function () {
+    const verificationModal = new bootstrap.Modal(document.getElementById('verificationModal'));
+    const body = document.body; // Get the body element
+    const container = document.querySelector('.container-fluid'); // Select the container you want to blur
+    
+    container.classList.add('blur-background');  // Apply blur effect to the background
+
+    verificationModal.show();  // Show the modal
+    // Event listener for hiding the modal
+    document.getElementById('verificationModal').addEventListener('hidden.bs.modal', function () {
+        container.classList.remove('blur-background');  // Remove the blur effect when the modal is closed
+    });
+});
+
+function verifyCode() {
+    const code = document.getElementById('verificationCode').value;
+    // Replace with actual code verification logic
+    if (code === "XQZ1") {  // Replace 'EXPECTED_CODE' with dynamic verification logic
+        document.getElementById('verificationModal').style.display = 'none';
+        document.getElementById('dashboardContent').style.display = "block";
+        document.querySelector('.container-fluid').classList.remove('blur-background');  // Remove the blur effect after successful verification
+    } else {
+        alert('Incorrect code. Please try again.');
+    }
+}
+
+
+
+
 </script>
 
 <!-- Bootstrap JS -->
