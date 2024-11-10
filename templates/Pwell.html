@@ -180,41 +180,48 @@
 <div class="container-fluid">
     <div class="row">
 <!-- Sidebar Navigation -->
-        <nav class="sidebar d-flex flex-column align-items-center">
+        <<nav class="col-md-2 col-lg-1 sidebar d-flex flex-column align-items-center">
             <img src="https://via.placeholder.com/80" alt="User Avatar" class="avatar">
             <ul class="nav flex-column text-center w-100">
                 <li class="nav-item">
-                    <a class="nav-link active" href="#">
-                        <i class="fas fa-home"></i>
+                    <a class="nav-link " href="home.html">
+                        <i class="fas fa-home"></i> <!-- Exercising Icon -->
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="#">
-                        <i class="fas fa-chart-line"></i>
+                    <a class="nav-link active" href="pwell.html">
+                        <i class="fas fa-running"></i> <!-- Exercising Icon -->
+                    </a>
+                </li>
+
+                <li class="nav-item">
+                    <a class="nav-link" href="dwell.html">
+                        <i class="fas fa-heartbeat"></i> <!-- Sexual Wellness Icon -->
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="#">
+                    <a class="nav-link" href="mwell.html">
+                        <i class="fas fa-brain"></i> <!-- Mental Wellness Icon -->
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="swell.html">
                         <i class="fas fa-calendar-alt"></i>
                     </a>
                 </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="#">
-                        <i class="fas fa-tasks"></i>
-                    </a>
-                </li>
             </ul>
-            <a class="nav-link logout" href="#">
+            <a class="nav-link logout" href="index.html">
                 <i class="fas fa-sign-out-alt"></i>
             </a>
         </nav>
+        
 
 <!-- Main Content -->
         <main class="col-md-10 ms-sm-auto px-md-4">
             <!-- Left Section (Image with Button) -->
             <div class="left-section">
-                <img src="/Static/images/doctorbooking.png" alt="Wellness Image" class="image">
-                <button class="btn-overlay">BookNow</button>
+                <img src="static/images/doctorbooking.png" alt="Wellness Image" class="image">
+                <button class="btn-overlay" data-bs-toggle="modal" data-bs-target="#bookingModal">Book Now</button>
             </div>
 
             <!-- Right Section (Chat Interface) -->
@@ -228,6 +235,33 @@
         </main>
     </div>
 </div>
+
+
+<!-- Booking Modal -->
+<div class="modal fade" id="bookingModal" tabindex="-1" aria-labelledby="bookingModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="bookingModalLabel">Book an Appointment</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form action="mailto:your-email@example.com" method="post" enctype="text/plain">
+                    <div class="mb-3">
+                        <label for="email" class="form-label">Email address</label>
+                        <input type="email" class="form-control" id="email" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="message" class="form-label">Message</label>
+                        <textarea class="form-control" id="message" rows="3" required></textarea>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Send Booking Request</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
 <!-- JavaScript for Chat Functionality -->
 <script>
     const chatContainer = document.getElementById('chatContainer');
