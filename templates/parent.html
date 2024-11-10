@@ -126,6 +126,9 @@ main {
 </head>
 <body>
 
+
+
+
 <div class="container-fluid">
     <div class="row">
 <!-- Sidebar Navigation -->
@@ -139,6 +142,25 @@ main {
     </a>
 </nav>
 
+<!-- Verification Modal -->
+<div class="modal" id="verificationModal" tabindex="-1" aria-hidden="true" data-bs-backdrop="static" data-bs-keyboard="false">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">Verify Access</h5>
+        </div>
+        <div class="modal-body">
+          <p>A verification code has been sent to your child’s email. Please enter it below to access the dashboard.</p>
+          <input type="text" id="verificationCode" class="form-control" placeholder="Enter code here">
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-primary" onclick="verifyCode()">Verify</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  <div class="container-fluid" id="dashboardContent" style="display: none;">
         
     <!-- Main Content -->
         <main class="col-md-10 ms-sm-auto px-md-4">
@@ -218,10 +240,24 @@ main {
         </main>
     </div>
 </div>
+</div>
 
 <!-- Chart.js Script for Rounded Bar Chart -->
 <script>
     const ctx = document.getElementById('moodChart').getContext('2d');
+    const code = document.getElementById('verificationCode').value;
+  // Replace with actual code verification logic
+  if (code === 'EXPECTED_CODE') {  // Replace 'EXPECTED_CODE' with dynamic verification logic
+    document.getElementById('verificationModal').style.display = 'none';
+    document.getElementById('dashboardContent').style.display = 'block';
+  } else {
+    alert('Incorrect code. Please try again.');
+  }
+// Show modal on page load
+document.addEventListener('DOMContentLoaded', function () {
+  const verificationModal = new bootstrap.Modal(document.getElementById('verificationModal'));
+  verificationModal.show();
+});
     const moodChart = new Chart(ctx, {
         type: 'bar',
         data: {
